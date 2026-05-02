@@ -66,6 +66,11 @@ namespace MicrofinanceApp.Models
             set { manager = value; }
         }
 
+        public string ManagerName
+        {
+            get { return manager != null ? manager.FullName : string.Empty; }
+        }
+
         public Loan()
         {
         }

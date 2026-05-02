@@ -68,7 +68,26 @@ namespace MicrofinanceApp
 
                 company.AddClient(client);
 
-                Manager manager = (Manager)cmbManager.SelectedItem;
+                Manager manager = cmbManager.SelectedItem as Manager;
+                string managerName = cmbManager.Text.Trim();
+
+                if (manager == null)
+                {
+                    if (string.IsNullOrWhiteSpace(managerName))
+                    {
+                        MessageBox.Show("Введите менеджера.");
+                        return;
+                    }
+
+                    manager = new Manager(
+                        company.Managers.Count + 1,
+                        managerName,
+                        "Новый отдел");
+
+                    company.AddManager(manager);
+                    InitializeManagers();
+                    cmbManager.SelectedItem = manager;
+                }
 
                 Loan loan = loanFactory.CreateLoan(
                     company.Loans.Count + 1,
@@ -112,6 +131,16 @@ namespace MicrofinanceApp
         {
             dgvLoans.DataSource = null;
             dgvLoans.DataSource = company.Loans;
+
+            if (dgvLoans.Columns["Manager"] != null)
+            {
+                dgvLoans.Columns["Manager"].Visible = false;
+            }
+
+            if (dgvLoans.Columns["ManagerName"] != null)
+            {
+                dgvLoans.Columns["ManagerName"].HeaderText = "Менеджер";
+            }
         }
 
         private void ClearForm()
