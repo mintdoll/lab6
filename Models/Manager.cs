@@ -1,50 +1,39 @@
-﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace MicrofinanceApp.Models
 {
-    [Serializable]
     public class Manager
     {
-        private int id;
-        private string fullName;
-        private string department;
+        public int Id { get; set; }
 
-        public int Id
-        {
-            get { return id; }
-            set { id = value; }
-        }
+        [Required]
+        [StringLength(200)]
+        public string FullName { get; set; }
 
-        public string FullName
-        {
-            get { return fullName; }
-            set { fullName = value; }
-        }
+        [Required]
+        [StringLength(100)]
+        public string Department { get; set; }
 
-        public string Department
-        {
-            get { return department; }
-            set { department = value; }
-        }
+        [Browsable(false)]
+        public virtual ICollection<Loan> Loans { get; set; }
 
         public Manager()
         {
+            Loans = new HashSet<Loan>();
         }
 
-        public Manager(int id, string fullName, string department)
+        public Manager(string fullName, string department) : this()
         {
-            this.id = id;
-            this.fullName = fullName;
-            this.department = department;
+            FullName = fullName;
+            Department = department;
         }
 
         public override string ToString()
         {
-            return fullName;
+            return FullName;
         }
     }
 }
+

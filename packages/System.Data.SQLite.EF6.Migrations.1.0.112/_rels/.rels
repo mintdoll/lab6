@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+  <Relationship Type="http://schemas.microsoft.com/packaging/2010/07/manifest" Target="/System.Data.SQLite.EF6.Migrations.nuspec" Id="R73e06cf48816406e" />
+  <Relationship Type="http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties" Target="/package/services/metadata/core-properties/d97a7a593d4043a1acd90e99efdb3204.psmdcp" Id="R65236920e55e405c" />
+</Relationships>

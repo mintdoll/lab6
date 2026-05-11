@@ -1,101 +1,82 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MicrofinanceApp.Models
 {
-    [Serializable]
     public class Loan
     {
-        private int id;
-        private decimal amount;
-        private double interestRate;
-        private DateTime issueDate;
-        private DateTime dueDate;
-        private string comment;
-        private Client client;
-        private Manager manager;
+        public int Id { get; set; }
 
-        public int Id
-        {
-            get { return id; }
-            set { id = value; }
-        }
+        [Required]
+        public decimal Amount { get; set; }
 
-        public decimal Amount
-        {
-            get { return amount; }
-            set { amount = value; }
-        }
+        [Required]
+        public decimal InterestRate { get; set; }
 
-        public double InterestRate
-        {
-            get { return interestRate; }
-            set { interestRate = value; }
-        }
+        [Required]
+        public DateTime IssueDate { get; set; }
 
-        public DateTime IssueDate
-        {
-            get { return issueDate; }
-            set { issueDate = value; }
-        }
+        [Required]
+        public DateTime DueDate { get; set; }
 
-        public DateTime DueDate
-        {
-            get { return dueDate; }
-            set { dueDate = value; }
-        }
+        [StringLength(500)]
+        public string Comment { get; set; }
 
-        public string Comment
-        {
-            get { return comment; }
-            set { comment = value; }
-        }
+        [Required]
+        public int ClientId { get; set; }
 
-        public Client Client
-        {
-            get { return client; }
-            set { client = value; }
-        }
+        [Browsable(false)]
+        public virtual Client Client { get; set; }
 
-        public Manager Manager
-        {
-            get { return manager; }
-            set { manager = value; }
-        }
+        [Required]
+        public int ManagerId { get; set; }
 
+        [Browsable(false)]
+        public virtual Manager Manager { get; set; }
+
+        [NotMapped]
         public string ManagerName
         {
-            get { return manager != null ? manager.FullName : string.Empty; }
+            get { return Manager != null ? Manager.FullName : string.Empty; }
         }
 
-        public Loan()
-        {
-        }
-
-        public Loan(int id, decimal amount, double interestRate, DateTime issueDate,
-            DateTime dueDate, string comment, Client client, Manager manager)
-        {
-            this.id = id;
-            this.amount = amount;
-            this.interestRate = interestRate;
-            this.issueDate = issueDate;
-            this.dueDate = dueDate;
-            this.comment = comment;
-            this.client = client;
-            this.manager = manager;
-        }
-
-        public decimal CalculateTotalAmount()
-        {
-            return amount + (amount * (decimal)interestRate / 100);
-        }
+        [NotMapped]
         public decimal TotalAmount
         {
             get { return CalculateTotalAmount(); }
         }
+        public Loan()
+        {
+        }
 
+        public Loan(decimal amount, decimal interestRate, DateTime issueDate, DateTime dueDate, string comment, Client client, Manager manager)
+        {
+            Amount = amount;
+            InterestRate = interestRate;
+            IssueDate = issueDate;
+            DueDate = dueDate;
+            Comment = comment;
+            Client = client;
+            Manager = manager;
+
+            if (client != null)
+            {
+                ClientId = client.Id;
+            }
+
+            if (manager != null)
+            {
+                ManagerId = manager.Id;
+            }
+        }
+
+
+        public decimal CalculateTotalAmount()
+        {
+            return Amount + (Amount * InterestRate / 100m);
+        }
     }
 }
+
