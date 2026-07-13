@@ -22,4 +22,4 @@
 ## Screenshots
 ![Экран клиентов](assets/screenshots/клиенты.png)
 ![Экран менеджеров](assets/screenshots/менеджеры.png)
-![Экран займов](assets\screenshots/займы.png)
+![Экран займов](assets/screenshots/займы.png)
