@@ -20,6 +20,6 @@
 - `Migrations` contains database migrations
 - `Form1` contains the user interface
 ## Screenshots
-![Экран клиентов](assets\screenshots\Экран клиентов.png)
+![Экран клиентов](assets/screenshots/Экран займов.png)
 ![Экран менеджеров](assets\screenshots\Экран менеджеров.png)
 ![Экран займов](assets\screenshots\Экран займов.png)
